@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "sourceMap": true,
+        "downlevelIteration": true,
+        "target": "es5",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "baseUrl": "./src",
+        "declaration": true,
+        "allowJs": false,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": false,
+        "strict": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "preserveConstEnums": false,
+        "esModuleInterop": true,
+    },
+    "compileOnSave": true,
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+        ".git",
+        "node_modules",
+        "lib"
+    ]
+}

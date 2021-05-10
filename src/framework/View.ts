@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import Transition from "framework/interfaces/Transition";
 import UpdateObject from "framework/interfaces/UpdateObject";
 import Immediate from "framework/transitions/Immediate";
-import Presenter from "framework/presenters/Presenter";
+import Presenter from "framework/Presenter";
 
 /**
  * ゲームビューの抽象クラス

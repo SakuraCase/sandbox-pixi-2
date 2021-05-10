@@ -1,21 +1,21 @@
 import View from "framework/View";
 import GameManager from "framework/GameManager";
-import { SamplePresenter } from "main/presenters/SamplePresenter";
+import { SamplePresenter2 } from "main/presenters/SamplePresenter2";
 import { Text } from "pixi.js";
-import { SampleView2 } from "./SampleView2";
+import { SampleView } from "./SampleView";
 
 /**
  * Sampleビュー
  */
-export class SampleView extends View {
+export class SampleView2 extends View {
   /**
    * コンストラクタ
    */
   constructor() {
     super();
-    this.presenter = new SamplePresenter(this);
+    this.presenter = new SamplePresenter2(this);
 
-    const text = new Text("Sample2へ", {
+    const text = new Text("Sampleへ", {
       fontSize: 20,
       fill: 0xffffff,
     });
@@ -26,7 +26,7 @@ export class SampleView extends View {
     text.position.set(200, 200);
 
     text.on("pointerdown", () => {
-      GameManager.instance.loadView(new SampleView2());
+      GameManager.instance.loadView(new SampleView());
     });
 
     this.addChild(text);

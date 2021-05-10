@@ -3,10 +3,9 @@ import * as PIXI from "pixi.js";
 import { detect } from "detect-browser";
 import ApplicationOptions from "framework/interfaces/ApplicationOptions";
 import CONFIG from "Config";
-import IndexedDBManager from "framework/managers/IndexedDBManager";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
-import DefaultViewManager from "main/DefaultViewManager";
+import View from "framework/View";
 
 /**
  * ゲーム全体のマネージャ
@@ -24,10 +23,21 @@ export default class GameManager {
   public game!: PIXI.Application;
 
   /**
-   * View遷移を管理するViewManagerインスタンス
-   * framework外のクラスを参照している...
+   * 現在のビューインスタンス
    */
-  public viewManager!: DefaultViewManager;
+  public currentView!: View;
+
+  /**
+   * ビューのリソースロード完了フラグ
+   * ビュートランジションを制御するためのフラグ
+   */
+  private viewResourceLoaded = true;
+
+  /**
+   * ビューのトランジション完了フラグ
+   * ビュートランジションを制御するためのフラグ
+   */
+  private viewTransitionOutFinished = true;
 
   /**
    * コンストラクタ
@@ -43,10 +53,10 @@ export default class GameManager {
   }
 
   /**
-   * ゲームを起動する
+   * ゲームを初期化する
    * 画面サイズや ApplicationOptions を渡すことができる
    */
-  public static start(params: {
+  public static init(params: {
     glWidth: number;
     glHeight: number;
     option?: ApplicationOptions;
@@ -65,9 +75,6 @@ export default class GameManager {
     const instance = new GameManager(game);
     GameManager.instance = instance;
 
-    // IndexedDB初期化
-    IndexedDBManager.init();
-
     // canvas を DOM に追加
     document.body.appendChild(game.view);
 
@@ -78,19 +85,26 @@ export default class GameManager {
 
     // 必要であればフルスクリーンの有効化
     GameManager.enableFullScreenIfNeeded();
+  }
+
+  /**
+   * ゲームを起動する
+   */
+  public static start(view: View): void {
+    const instance = GameManager.instance;
+    if (!instance) {
+      throw new Error("No instance");
+    }
+
+    instance.loadView(view);
 
     // メインループ
-    game.ticker.stop();
+    instance.game.ticker.stop();
     gsap.ticker.add(() => {
-      game.ticker.update();
+      instance.game.ticker.update();
     });
-    game.ticker.add((delta: number) => {
-      if (instance.viewManager) {
-        const view = instance.viewManager.getCurrentView();
-        if (view) {
-          view.update(delta);
-        }
-      }
+    instance.game.ticker.add((delta: number) => {
+      instance.currentView.update(delta);
     });
   }
 
@@ -144,10 +158,50 @@ export default class GameManager {
   }
 
   /**
-   * View遷移を管理するViewManagerを設定する
+   * 可能であれば新しいビューへのトランジションを開始する
    */
-  public static initViewManager(newViewManager: DefaultViewManager): void {
-    const instance = GameManager.instance;
-    instance.viewManager = newViewManager;
+  public transitionInIfPossible(newView: View): boolean {
+    if (!this.viewResourceLoaded || !this.viewTransitionOutFinished) {
+      return false;
+    }
+
+    if (this.currentView) {
+      this.currentView.destroy({ children: true });
+    }
+    this.currentView = newView;
+
+    if (GameManager.instance.game) {
+      GameManager.instance.game.stage.addChild(newView);
+    }
+
+    newView.beginTransitionIn();
+
+    return true;
+  }
+
+  /**
+   * ビューをロードする
+   * 新しいビューのリソース読み込みと古いビューのトランジションを同時に開始する
+   * いずれも完了したら、新しいビューのトランジションを開始する
+   */
+  public loadView(newView: View): void {
+    if (this.currentView) {
+      this.viewResourceLoaded = false;
+      this.viewTransitionOutFinished = false;
+      newView.beginLoadResource(() => {
+        this.viewResourceLoaded = true;
+        this.transitionInIfPossible(newView);
+      });
+      this.currentView.beginTransitionOut((_: View) => {
+        this.viewTransitionOutFinished = true;
+        this.transitionInIfPossible(newView);
+      });
+    } else {
+      this.viewTransitionOutFinished = true;
+      newView.beginLoadResource(() => {
+        this.viewResourceLoaded = true;
+        this.transitionInIfPossible(newView);
+      });
+    }
   }
 }

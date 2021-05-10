@@ -1,9 +1,9 @@
 import * as PIXI from "pixi.js";
-import GameManager from "framework/managers/GameManager";
-import DefaultViewManager from "main/DefaultViewManager";
+import GameManager from "framework/GameManager";
+import { SampleView } from "main/views/SampleView";
 
 window.onload = () => {
-  GameManager.start({
+  GameManager.init({
     glWidth: 1920,
     glHeight: 1080,
     option: {
@@ -15,5 +15,5 @@ window.onload = () => {
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   PIXI.settings.RESOLUTION = 3;
 
-  GameManager.initViewManager(new DefaultViewManager());
+  GameManager.start(new SampleView());
 };

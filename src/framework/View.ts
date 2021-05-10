@@ -1,8 +1,9 @@
 import * as PIXI from "pixi.js";
 import Transition from "framework/interfaces/Transition";
 import UpdateObject from "framework/interfaces/UpdateObject";
-import Immediate from "framework/transitions/Immediate";
+import Immediate from "framework/containers/Immediate";
 import Presenter from "framework/Presenter";
+import { PointerEventLockConteiner } from "./containers/PointerEventLockConteiner";
 
 /**
  * ゲームビューの抽象クラス
@@ -29,6 +30,11 @@ export default abstract class View extends PIXI.Container {
   protected transitionOut: Transition = new Immediate();
 
   protected presenter!: Presenter;
+
+  /**
+   * ポインタイベント制御用オブジェクト
+   */
+  protected pointerEventLockConteiner: PointerEventLockConteiner = new PointerEventLockConteiner();
 
   constructor() {
     super();
@@ -117,5 +123,23 @@ export default abstract class View extends PIXI.Container {
 
   public beginLoadResource(onLoaded: () => void): Promise<void> {
     return this.presenter.beginLoadResource(onLoaded);
+  }
+
+  /**
+   * pointerEventが反応しないようにする
+   */
+  public lockPointerEvent(): void {
+    if (!this.getChildByName(this.pointerEventLockConteiner.name)) {
+      this.addChild(this.pointerEventLockConteiner);
+    }
+  }
+
+  /**
+   * pointerEventが反応するようにする
+   */
+  public unlockPointerEvent(): void {
+    if (this.getChildByName(this.pointerEventLockConteiner.name)) {
+      this.removeChild(this.pointerEventLockConteiner);
+    }
   }
 }

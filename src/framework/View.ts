@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
 import Transition from "framework/interfaces/Transition";
 import UpdateObject from "framework/interfaces/UpdateObject";
@@ -121,8 +122,11 @@ export default abstract class View extends PIXI.Container {
     this.transitionOut.begin();
   }
 
-  public beginLoadResource(onLoaded: () => void): Promise<void> {
-    return this.presenter.beginLoadResource(onLoaded);
+  /**
+   * ビュー切り替え時リソースロード
+   */
+  public beginLoadResource(onComplete: () => void): Promise<void> {
+    return this.presenter.beginLoadResource(() => {}, onComplete);
   }
 
   /**

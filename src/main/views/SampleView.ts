@@ -4,6 +4,7 @@ import { SamplePresenter } from "main/presenters/SamplePresenter";
 import { Text } from "pixi.js";
 import { SampleView2 } from "./SampleView2";
 import { LockTestView } from "./LockTestView";
+import { RepositoryTestView } from "./RepositoryTestView";
 
 /**
  * Sampleビュー
@@ -36,11 +37,24 @@ export class SampleView extends View {
     lockTest.interactive = true;
     lockTest.buttonMode = true;
     lockTest.anchor.set(0, 0.5);
-    lockTest.position.set(200, 300);
+    lockTest.position.set(200, 250);
     lockTest.on("pointerdown", () => {
       GameManager.instance.loadView(new LockTestView());
     });
     this.addChild(lockTest);
+
+    const repositoryTest = new Text("repositoryTestへ", {
+      fontSize: 20,
+      fill: 0xffffff,
+    });
+    repositoryTest.interactive = true;
+    repositoryTest.buttonMode = true;
+    repositoryTest.anchor.set(0, 0.5);
+    repositoryTest.position.set(200, 300);
+    repositoryTest.on("pointerdown", () => {
+      GameManager.instance.loadView(new RepositoryTestView());
+    });
+    this.addChild(repositoryTest);
   }
 
   /**

@@ -5,6 +5,7 @@ import { Text } from "pixi.js";
 import { SampleView2 } from "./SampleView2";
 import { LockTestView } from "./LockTestView";
 import { RepositoryTestView } from "./RepositoryTestView";
+import { NeumorphismTestView } from "./NeumorphismTestView";
 
 /**
  * Sampleビュー
@@ -55,6 +56,19 @@ export class SampleView extends View {
       GameManager.instance.loadView(new RepositoryTestView());
     });
     this.addChild(repositoryTest);
+
+    const neumorphismTest = new Text("NeumorphismTestへ", {
+      fontSize: 20,
+      fill: 0xffffff,
+    });
+    neumorphismTest.interactive = true;
+    neumorphismTest.buttonMode = true;
+    neumorphismTest.anchor.set(0, 0.5);
+    neumorphismTest.position.set(200, 350);
+    neumorphismTest.on("pointerdown", () => {
+      GameManager.instance.loadView(new NeumorphismTestView());
+    });
+    this.addChild(neumorphismTest);
   }
 
   /**

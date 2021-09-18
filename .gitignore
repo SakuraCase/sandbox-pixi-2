@@ -111,3 +111,8 @@ typings/
 .vscode-test
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+dist/*
+!dist/assets/.gitkeep
+!dist/index.js
+!dist/index.js.LICENSE.txt

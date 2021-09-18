@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
-import LoaderAddParam from "framework/interfaces/LoaderAddParam";
+import LoaderAddParam from "framework/interfaces/loaderAddParam";
 
 /**
  * Precenter抽象クラス
@@ -8,6 +8,19 @@ import LoaderAddParam from "framework/interfaces/LoaderAddParam";
  */
 export default abstract class Precenter {
   protected resourceList: string[] = [];
+
+  /**
+   * 初回リソースダウンロードのフローを実行する
+   */
+  public beginInitLoadResource(
+    onLoaded: () => void,
+    onComplete: () => void
+  ): Promise<void> {
+    return this.beginLoadResource(onLoaded, () => {
+      this.init();
+      onComplete();
+    });
+  }
 
   /**
    * リソースダウンロードのフローを実行する
@@ -67,4 +80,7 @@ export default abstract class Precenter {
     assetMap.forEach((value: LoaderAddParam) => loaderParams.push(value));
     return loaderParams;
   }
+
+  /** 初回リソース読み込み後の実行 */
+  protected init(): void {}
 }

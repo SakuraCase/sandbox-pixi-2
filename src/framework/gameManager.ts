@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as PIXI from "pixi.js";
 import { detect } from "detect-browser";
-import ApplicationOptions from "framework/interfaces/ApplicationOptions";
-import CONFIG from "Config";
+import ApplicationOptions from "framework/interfaces/applicationOptions";
+import { CONFIG } from "resources/config";
 import { gsap } from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
-import View from "framework/View";
+import View from "framework/view";
 
 /**
  * ゲーム全体のマネージャ
@@ -104,7 +104,9 @@ export default class GameManager {
       instance.game.ticker.update();
     });
     instance.game.ticker.add((delta: number) => {
-      instance.currentView.update(delta);
+      if (instance.currentView) {
+        instance.currentView.update(delta);
+      }
     });
   }
 

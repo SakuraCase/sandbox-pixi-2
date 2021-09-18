@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import GameManager from "framework/GameManager";
+import GameManager from "framework/gameManager";
 import { SampleView } from "main/views/SampleView";
 
 window.onload = () => {

@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
-import View from "framework/View";
-import GameManager from "framework/GameManager";
+import View from "framework/view";
+import GameManager from "framework/gameManager";
 import { Container, Graphics, Text } from "pixi.js";
 import { SampleView } from "./SampleView";
 import { NeumorphismTestPresenter } from "main/presenters/NeumorphismTestPresenter";

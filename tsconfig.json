@@ -11,7 +11,7 @@
             "dom"
         ],
         "baseUrl": "./src",
-        "declaration": true,
+        "declaration": false,
         "allowJs": false,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": false,
@@ -23,6 +23,7 @@
         "noUnusedParameters": true,
         "preserveConstEnums": false,
         "esModuleInterop": true,
+        "strictPropertyInitialization": false,
     },
     "compileOnSave": true,
     "include": [

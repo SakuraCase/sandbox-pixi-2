@@ -1,4 +1,4 @@
-import Presenter from "framework/Presenter";
+import Presenter from "framework/presenter";
 import { TestRepository } from "main/repositories/TestRepository";
 import { RepositoryTestView } from "main/views/RepositoryTestView";
 

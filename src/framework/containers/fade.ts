@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
-import Transition from "framework/interfaces/Transition";
-import GameManager from "framework/GameManager";
+import Transition from "framework/interfaces/transition";
+import GameManager from "framework/gameManager";
 
 /**
  * トランジションのフェード表現

@@ -1,4 +1,4 @@
-import GameManager from "framework/GameManager";
+import GameManager from "framework/gameManager";
 import { Container, Graphics } from "pixi.js";
 
 /**

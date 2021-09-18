@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
-import Transition from "framework/interfaces/Transition";
-import UpdateObject from "framework/interfaces/UpdateObject";
-import Immediate from "framework/containers/Immediate";
-import Presenter from "framework/Presenter";
-import { PointerEventLockConteiner } from "./containers/PointerEventLockConteiner";
+import Transition from "framework/interfaces/transition";
+import UpdateObject from "framework/interfaces/updateObject";
+import Immediate from "framework/containers/immediate";
+import Presenter from "framework/presenter";
+import { PointerEventLockConteiner } from "./containers/pointerEventLockConteiner";
 
 /**
  * ゲームビューの抽象クラス
@@ -35,7 +35,8 @@ export default abstract class View extends PIXI.Container {
   /**
    * ポインタイベント制御用オブジェクト
    */
-  protected pointerEventLockConteiner: PointerEventLockConteiner = new PointerEventLockConteiner();
+  protected pointerEventLockConteiner: PointerEventLockConteiner =
+    new PointerEventLockConteiner();
 
   constructor() {
     super();
@@ -126,7 +127,7 @@ export default abstract class View extends PIXI.Container {
    * ビュー切り替え時リソースロード
    */
   public beginLoadResource(onComplete: () => void): Promise<void> {
-    return this.presenter.beginLoadResource(() => {}, onComplete);
+    return this.presenter.beginInitLoadResource(() => {}, onComplete);
   }
 
   /**

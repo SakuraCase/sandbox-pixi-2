@@ -1,5 +1,5 @@
-import View from "framework/View";
-import GameManager from "framework/GameManager";
+import View from "framework/view";
+import GameManager from "framework/gameManager";
 import { Text } from "pixi.js";
 import { SampleView } from "./SampleView";
 import { RepositoryTestPresenter } from "main/presenters/RepositoryTestPresenter";

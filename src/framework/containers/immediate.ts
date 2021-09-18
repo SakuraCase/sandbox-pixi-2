@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as PIXI from "pixi.js";
-import Transition from "framework/interfaces/Transition";
+import Transition from "framework/interfaces/transition";
 
 /**
  * 即座にビュー遷移させるトランジション

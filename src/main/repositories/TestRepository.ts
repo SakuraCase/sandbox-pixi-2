@@ -1,11 +1,11 @@
-import Repository from "framework/Repository";
+import Dexie from "dexie";
 
 export interface TestEntity {
   id?: number;
   name?: string | null;
 }
 
-export class TestRepository extends Repository {
+export class TestRepository extends Dexie {
   public testTable!: Dexie.Table<TestEntity, number>;
 
   constructor() {

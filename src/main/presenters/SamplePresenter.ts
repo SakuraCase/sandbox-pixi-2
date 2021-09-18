@@ -1,4 +1,4 @@
-import Presenter from "framework/Presenter";
+import Presenter from "framework/presenter";
 import { SampleView } from "main/views/SampleView";
 
 /**

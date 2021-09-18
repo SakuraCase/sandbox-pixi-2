@@ -1,4 +1,4 @@
-import Presenter from "framework/Presenter";
+import Presenter from "framework/presenter";
 import { LockTestView } from "main/views/LockTestView";
 
 /**

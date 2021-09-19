@@ -6,6 +6,7 @@ import { SampleView2 } from "./SampleView2";
 import { LockTestView } from "./LockTestView";
 import { RepositoryTestView } from "./RepositoryTestView";
 import { NeumorphismTestView } from "./NeumorphismTestView";
+import { AnimationView } from "./AnimationView";
 
 /**
  * Sampleビュー
@@ -69,6 +70,19 @@ export class SampleView extends View {
       GameManager.instance.loadView(new NeumorphismTestView());
     });
     this.addChild(neumorphismTest);
+
+    const animationTest = new Text("AnimationTestへ", {
+      fontSize: 20,
+      fill: 0xffffff,
+    });
+    animationTest.interactive = true;
+    animationTest.buttonMode = true;
+    animationTest.anchor.set(0, 0.5);
+    animationTest.position.set(200, 400);
+    animationTest.on("pointerdown", () => {
+      GameManager.instance.loadView(new AnimationView());
+    });
+    this.addChild(animationTest);
   }
 
   /**
